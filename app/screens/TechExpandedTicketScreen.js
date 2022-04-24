@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView, Modal } from 'react-native';
 import Card from '../shared/ticketsCard';
 import moment from 'moment';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import QRCode from 'react-native-qrcode-svg'
+import { Center } from 'native-base';
 
 const TechExpandedTicketScreen = ({ navigation }) => {
 	// Set Variables
+	const [ modalVisible, setModalVisibile] = React.useState(false);
 	const [ customerInfo, setcustomerInfo ] = React.useState(navigation.getParam('customerInfo'));
 	const [ ticket, setticket ] = React.useState(navigation.getParam('item'));
 	const [ statusContainerChange, setstatusContainerChange ] = React.useState(false);
@@ -47,6 +50,19 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 							justifyContent: 'center',
 						}}
 					>
+						<Modal
+						transparent={true}
+						animationType='slide'
+						visible={modalVisible}
+						onRequestClose={() => setModalVisibile(!modalVisible)}>
+							<QRCode
+							value={ ticket}
+							size = {200}
+							color='white'
+							backgroundColor='black'
+							>
+							</QRCode>
+						</Modal>
 						<Text style={{ fontSize: 30, fontWeight: 'bold' }}>Booking Details</Text>
 						<Text
 							style={{
@@ -57,7 +73,22 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 							Booking ID: {ticket.booking_id}
 						</Text>
 					</View>
-
+					<View
+						style={{
+							flex: 1,
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<TouchableOpacity
+							style={{ paddingBottom: 10 }}
+							onPress={() => {
+								setModalVisibile(!modalVisible)
+							}}
+							>
+							<Text style={{ fontSize: 30}}>Generate QR Code</Text>
+							</TouchableOpacity>
+					</View>
 					{/* Sets remaining screen for the card component */}
 					<View style={{ flex: 8 }}>
 						{/* Centers content within */}

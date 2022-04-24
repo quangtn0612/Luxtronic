@@ -1,5 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
+import ScanQRCodeScreen from "../screens/ScanQRCodeScreen";
 import TechMainMenuScreen from "../screens/TechMainMenuScreen";
 import TechTicketsScreen from "../screens/TechTicketsScreen";
 import TechExpandedTicketScreen from "../screens/TechExpandedTicketScreen";
@@ -51,6 +52,16 @@ const screens = {
             };
         },
     },
+
+    ScanQRCodeScreen: {
+        screen: ScanQRCodeScreen,
+        navigationOptions: ({ navigation }) => {
+            return {
+                headerTitle: () => <HomeHeader navigation={navigation} />,
+                headerLeft: () => null,
+            };
+        },
+    }
 };
 
 // Sets header style for automatic header between screens

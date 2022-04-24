@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, SafeAreaView, TouchableOpacity, Text, Alert } 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '../shared/ticketsCard';
 
+
 const TechMainMenuScreen = ({ navigation }) => {
 	const [ bookingsList, setBookingList ] = React.useState([]);
 
@@ -75,21 +76,19 @@ const TechMainMenuScreen = ({ navigation }) => {
 						</View>
 					</Card>
 
-					{/*<Card>
-                            {/* Sets flex style to row and centers content within 
+					{<Card>
+                            {// Sets flex style to row and centers content within 
                             <View style={{
                                 flexDirection:"row",
                                 alignItems:'center',
                                 justifyContent:'center',
                                 height: 160
                             }}>
-                                {/* Sets flex to 1 to take up half of screen within this section 
+                                { //Sets flex to 1 to take up half of screen within this section 
                                 <View style={styles.IconContainer}>
                                     <TouchableOpacity
                                     style={styles.IconButton}
-                                    onPress={
-                                        () => console.log("QR Button Pressed")
-                                    }
+                                    onPress={() => {navigation.navigate('ScanQRCodeScreen');}}
                                     >
                                         <Image 
                                             style={styles.Icon}
@@ -98,8 +97,8 @@ const TechMainMenuScreen = ({ navigation }) => {
                                         <Text style={styles.IconText}>Scan QR Code</Text>
                                     </TouchableOpacity>
                                 </View>
-                            </View>
-                        </Card>*/}
+								}</View>
+					}</Card>}
 				</View>
 
 				{/* Sets remaining screen to blank */}

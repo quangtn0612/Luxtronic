@@ -16,15 +16,12 @@
 		"assetBundlePatterns": [ "**/*" ],
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "Luxtronic Support",
 			"buildNumber": "1.0.0"
 		},
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./app/assets/Luxtronic_Logo2.png",
 				"backgroundColor": "#FFFFFF",
-				"package": "Luxtronic Support",
-				"versionCode": 1
 			}
 		},
 		"web": {
