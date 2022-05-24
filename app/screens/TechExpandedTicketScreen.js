@@ -139,10 +139,31 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 										{/* Styles Text content within */}
 										<View style={styles.cardTextContainer}>
 											<View>
+												<Text style={styles.ticketText}>User ID:</Text>
+
+												<Text style={styles.cardText}>
+													{ticket.user_id}
+												</Text>
+											</View>
+											<View>
 												<Text style={styles.ticketText}>Customer Name:</Text>
 
 												<Text style={styles.cardText}>
 													{customerInfo.first_name} {customerInfo.last_name}
+												</Text>
+											</View>
+											<View>
+												<Text style={styles.ticketText}>Email:</Text>
+
+												<Text style={styles.cardText}>
+													{customerInfo.email}
+												</Text>
+											</View>
+											<View>
+												<Text style={styles.ticketText}>Phone Number:</Text>
+
+												<Text style={styles.cardText}>
+													{customerInfo.phone_number}
 												</Text>
 											</View>
 											<View>
