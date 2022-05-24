@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         marginHorizontal: 4,
         marginVertical: 6,
-        width: "45%",
+        width: "70%",
     },
     cardContent: {
         //backgroundColor: "tomato",
