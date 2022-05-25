@@ -1,17 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView, Modal } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView, Modal, TextInput} from 'react-native';
+import CalendarPicker from 'react-native-calendar-picker';
 import Card from '../shared/ticketsCard';
 import moment from 'moment';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import QRCode from 'react-native-qrcode-svg'
 import { Center } from 'native-base';
 
+import AppTextInput from '../components/AppTextInput';
+import { date } from 'yup';
+
 const TechExpandedTicketScreen = ({ navigation }) => {
 	// Set Variables
 	const [ modalVisible, setModalVisibile] = React.useState(false);
+	const [ dateModalVis, setDateVisible] = React.useState(false);
 	const [ customerInfo, setcustomerInfo ] = React.useState(navigation.getParam('customerInfo'));
 	const [ ticket, setticket ] = React.useState(navigation.getParam('item'));
 	const [ statusContainerChange, setstatusContainerChange ] = React.useState(false);
+	const [ model, setModel] = React.useState(ticket.model_number);
+	const [ serialNo, setSerialNo] = React.useState(ticket.serial_number);
+	const [ bookingDate, setBookingDate] = React.useState(ticket.date_booked);
 	const [ list, setList ] = React.useState([
 		{
 			title: 'Pending',
@@ -34,6 +42,49 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 			bgColor: '#CCCCCC',
 		},
 	]);
+	let deviceTypes = [{value: 'Windows'}, {value: 'Apple'}];
+	let times = [
+		{value:'11:00AM'},
+		{value:'11:10AM'},
+		{value:'11:20AM'},
+		{value:'11:30AM'},
+		{value:'11:40AM'},
+		{value:	'11:50AM'},
+		{value:	'12:00PM'},
+		{value:	'12:10PM'},
+		{value:	'12:20PM'},
+		{value:	'12:30PM'},
+		{value:	'12:40PM'},
+		{value:	'12:50PM'},
+		{value:	'1:00PM'},
+		{value:	'1:10PM'},
+		{value:	'1:20PM'},
+		{value:	'1:30PM'},
+		{value:	'1:40PM'},
+		{value:	'1:50PM'},
+		{value:	'2:00PM'},
+		{value:	'2:10PM'},
+		{value:	'2:20PM'},
+		{value:	'2:30PM'},
+		{value:	'2:40PM'},
+		{value:	'2:50PM'},
+		{value:	'3:00PM'},
+		{value:	'3:10PM'},
+		{value:	'3:20PM'},
+		{value:	'3:30PM'},
+		{value:	'3:40PM'},
+		{value:	'3:50PM'},
+		{value:	'4:00PM'},
+		{value:	'4:10PM'},
+		{value:	'4:20PM'},
+		{value:	'4:30PM'},
+	];
+
+	const updateDate = (selectedDate) => {
+		const currentDate = moment(new Date(selectedDate)).format('DD-MM-YYYY'); 
+		
+		setBookingDate(currentDate);
+	}
 
 	return (
 		// View set to entire screen
@@ -41,8 +92,39 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 			{/* Sets safe usable screen area */}
 			<SafeAreaView style={styles.container}>
 				{/* Takes up whole usable screen */}
+				<Modal
+					animationType='slide'
+					visible={modalVisible}
+					transparent={true}
+					onRequestClose={() => setModalVisibile(!modalVisible)}>
+						<View style = {{
+							flex: 1,
+							justifyContent: 'center',
+							alignItems: 'center',
+							backgroundColor: 'rgba(0,0,0,0.5)'
+						}}>
+							<View style = {{
+								width:300,
+								height:300,
+								justifyContent: 'center',
+								alignItems: 'center',
+								backgroundColor: 'white',
+								borderRadius:50
+							}}>
+								<QRCode
+								value={ ticket.booking_id + '/' + ticket.user_id}
+								size = {250}
+								color='white'
+								backgroundColor='black'
+								>
+								</QRCode>
+							</View>
+							<Text>Please present this QRCode to the technician to have your ticket quickly brought up</Text>
+						</View>				
+					</Modal>
 				<View style={{ flex: 1 }}>
 					{/* Containing title and sub title and styling */}
+
 					<View
 						style={{
 							flex: 1,
@@ -50,19 +132,7 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 							justifyContent: 'center',
 						}}
 					>
-						<Modal
-						transparent={true}
-						animationType='slide'
-						visible={modalVisible}
-						onRequestClose={() => setModalVisibile(!modalVisible)}>
-							<QRCode
-							value={ ticket}
-							size = {200}
-							color='white'
-							backgroundColor='black'
-							>
-							</QRCode>
-						</Modal>
+						
 						<Text style={{ fontSize: 30, fontWeight: 'bold' }}>Booking Details</Text>
 						<Text
 							style={{
@@ -99,6 +169,7 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 								justifyContent: 'center',
 							}}
 						>
+							
 							{/* Styles card */}
 							<Card>
 								{/* Hidden view for status update */}
@@ -179,16 +250,15 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 											<View>
 												<Text style={styles.ticketText}>Device:</Text>
 
-												<Text style={styles.cardText}>{ticket.device_type}</Text>
+												<TextInput style={styles.cardText}
+												value = {ticket.device_type}></TextInput>
 											</View>
 											<View>
 												<Text style={styles.ticketText}>Model Number:</Text>
-
 												<Text style={styles.cardText}>{ticket.model_number}</Text>
 											</View>
 											<View>
 												<Text style={styles.ticketText}>Serial Number:</Text>
-
 												<Text style={styles.cardText}>{ticket.serial_number}</Text>
 											</View>
 											<View>
@@ -198,12 +268,11 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 											</View>
 											<View>
 												<Text style={styles.ticketText}>Drop-off Date:</Text>
-
-												<Text style={styles.cardText}>{ticket.date_booked}</Text>
+												<Text style={styles.cardText}>{ticket.date_booked}</Text>										
 											</View>
 											<View>
 												<Text style={styles.ticketText}>Time Booked:</Text>
-
+												
 												<Text style={styles.cardText}>{ticket.time_booked}</Text>
 											</View>
 											{ticket.status == 'Completed' ||
@@ -304,7 +373,6 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 													) : null}
 												</TouchableOpacity>
 											</View>
-											{ticket.status == 'In Progress' ? (
 												<TouchableOpacity
 													style={styles.cardbuttonJobRequest}
 													onPress={() =>
@@ -312,7 +380,7 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 												>
 													<Text style={styles.text}>Edit Job Request</Text>
 												</TouchableOpacity>
-											) : null}
+
 										</View>
 									</View>
 								</ScrollView>

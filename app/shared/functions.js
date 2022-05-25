@@ -21,6 +21,7 @@ export function setGlobalPHPFiles() {
 	global.TECH_PAST_BOOKINGS = 'tech_past_bookings.php';
 	global.UPDATE_STATUS = 'update_status.php';
 	global.USER_LOGIN = 'user_login.php';
+	global.TECH_BOOKING_FROM_ID = 'tech_booking_from_id';
 }
 
 // Push notifications settings - https://docs.expo.dev/push-notifications/push-notifications-setup/

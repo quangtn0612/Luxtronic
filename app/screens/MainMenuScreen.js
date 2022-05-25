@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect}  from 'react';
 import { StyleSheet, View, SafeAreaView, TouchableOpacity, Linking, Text, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '../shared/mainmenuCard';
 
+
 const MainMenuScreen = ({ navigation }) => {
+
+
 	return (
 		// Setting View to full screen
 		<View style={{ flex: 1 }}>
@@ -178,6 +181,7 @@ const MainMenuScreen = ({ navigation }) => {
 		</View>
 	);
 };
+
 
 const styles = StyleSheet.create({
 	background: {

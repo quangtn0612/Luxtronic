@@ -19,7 +19,7 @@ const TechMainMenuScreen = ({ navigation }) => {
 					style={{
 						width: '100%',
 						flex: 1,
-						marginTop: '10%',
+						marginTop: '20%',
 						alignItems: 'center',
 						justifyContent: 'center',
 					}}
