@@ -1,5 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
+import ScanQRCodeScreen from "../screens/ScanQRCodeScreen";
 import TechMainMenuScreen from "../screens/TechMainMenuScreen";
 import TechTicketsScreen from "../screens/TechTicketsScreen";
 import TechUsersScreen from "../screens/TechUsersScreen";
@@ -66,6 +67,16 @@ const screens = {
 
   TechJobRequestScreen: {
     screen: TechJobRequestScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <HomeHeader navigation={navigation} />,
+        headerLeft: () => null,
+      };
+    },
+  },
+
+  ScanQRCodeScreen: {
+    screen: ScanQRCodeScreen,
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <HomeHeader navigation={navigation} />,

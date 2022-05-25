@@ -24,6 +24,7 @@ export function setGlobalPHPFiles() {
   global.USER_LOGIN = "user_login.php";
   global.FETCH_USERS = "fetch_users.php"; //fetch all users (technician)
   global.DELETE_USERS = "delete_users.php"; //delete all users (technician)
+	global.TECH_BOOKING_FROM_ID = 'tech_booking_from_id';
 }
 
 // Push notifications settings - https://docs.expo.dev/push-notifications/push-notifications-setup/

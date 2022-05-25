@@ -125,32 +125,39 @@ const TechMainMenuScreen = ({ navigation }) => {
                   </View>
                 </View>
               </Card>
-
-              {/*<Card>
-                            {/* Sets flex style to row and centers content within 
-                            <View style={{
-                                flexDirection:"row",
-                                alignItems:'center',
-                                justifyContent:'center',
-                                height: 160
-                            }}>
-                                {/* Sets flex to 1 to take up half of screen within this section 
-                                <View style={styles.IconContainer}>
-                                    <TouchableOpacity
-                                    style={styles.IconButton}
-                                    onPress={
-                                        () => console.log("QR Button Pressed")
-                                    }
-                                    >
-                                        <Image 
-                                            style={styles.Icon}
-                                            source={require("../assets/Luxtronic_QR_Code.png")}>
-                                        </Image>
-                                        <Text style={styles.IconText}>Scan QR Code</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </Card>*/}
+              {
+                <Card>
+                  {
+                    // Sets flex style to row and centers content within
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: 160,
+                      }}
+                    >
+                      {
+                        //Sets flex to 1 to take up half of screen within this section
+                        <View style={styles.IconContainer}>
+                          <TouchableOpacity
+                            style={styles.IconButton}
+                            onPress={() => {
+                              navigation.navigate("ScanQRCodeScreen");
+                            }}
+                          >
+                            <Image
+                              style={styles.Icon}
+                              source={require("../assets/Luxtronic_QR_Code.png")}
+                            ></Image>
+                            <Text style={styles.IconText}>Scan QR Code</Text>
+                          </TouchableOpacity>
+                        </View>
+                      }
+                    </View>
+                  }
+                </Card>
+              }
             </View>
 
             {/* Sets remaining screen to blank */}
