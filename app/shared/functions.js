@@ -5,22 +5,25 @@ import * as Notifications from "expo-notifications";*/
 
 // Sets global PHP file strings
 export function setGlobalPHPFiles() {
-	global.API_DIRECTORY = 'http://luxtronic.com.au/mobile-api/';
-	global.BOOK_PICKUP = 'book_pickup.php';
-	global.CANCEL_BOOKING = 'cancel_booking.php';
-	global.CURRENT_BOOKINGS = 'current_bookings.php';
-	global.EDIT_PROFILE = 'edit_profile.php';
-	global.INSERT_BOOKING = 'insert_booking.php';
-	global.JOB_REQUEST = 'job_request.php';
-	global.JOB_REQUEST_RESPONSE = 'job_request_response.php';
-	global.PAST_BOOKINGS = 'past_bookings.php';
-	global.REGISTRATION = 'registration.php';
-	global.SEARCH_BOOKINGS = 'search_bookings.php';
-	global.TECH_CURRENT_BOOKINGS = 'tech_current_bookings.php';
-	global.TECH_CUSTOMERINFO_TICKETS = 'tech_customerinfo_tickets.php';
-	global.TECH_PAST_BOOKINGS = 'tech_past_bookings.php';
-	global.UPDATE_STATUS = 'update_status.php';
-	global.USER_LOGIN = 'user_login.php';
+  global.API_DIRECTORY = "http://luxtronic.com.au/mobile-api/";
+  global.BOOK_PICKUP = "book_pickup.php";
+  global.CANCEL_BOOKING = "cancel_booking.php";
+  global.CURRENT_BOOKINGS = "current_bookings.php";
+  global.EDIT_PROFILE = "edit_profile.php"; //edit a profile
+  global.RESET_PASSWORD = "reset_password.php"; //edit a password
+  global.INSERT_BOOKING = "insert_booking.php";
+  global.JOB_REQUEST = "job_request.php";
+  global.JOB_REQUEST_RESPONSE = "job_request_response.php";
+  global.PAST_BOOKINGS = "past_bookings.php";
+  global.REGISTRATION = "registration.php"; //create a profile
+  global.SEARCH_BOOKINGS = "search_bookings.php";
+  global.TECH_CURRENT_BOOKINGS = "tech_current_bookings.php";
+  global.TECH_CUSTOMERINFO_TICKETS = "tech_customerinfo_tickets.php";
+  global.TECH_PAST_BOOKINGS = "tech_past_bookings.php";
+  global.UPDATE_STATUS = "update_status.php";
+  global.USER_LOGIN = "user_login.php";
+  global.FETCH_USERS = "fetch_users.php"; //fetch all users (technician)
+  global.DELETE_USERS = "delete_users.php"; //delete all users (technician)
 }
 
 // Push notifications settings - https://docs.expo.dev/push-notifications/push-notifications-setup/

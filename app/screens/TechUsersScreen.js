@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
+  Linking,
 } from "react-native";
 import Card from "../shared/ticketsCard";
 import AppTextInput from "../components/AppTextInput";
 
-const TechTicketsScreen = ({ navigation }) => {
+const TechUsersScreen = ({ navigation }) => {
   const [customerInfo, setcustomerInfo] = React.useState([]);
   const [search, setsearch] = React.useState("");
 
@@ -22,23 +23,6 @@ const TechTicketsScreen = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <View style={{ flex: 1 }}>
           {/* Child view elements are ordered by columns */}
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ fontSize: 30, fontWeight: "bold" }}>Bookings</Text>
-            <Text
-              style={{
-                fontSize: 20,
-                color: "grey",
-              }}
-            >
-              {navigation.getParam("bookingsType").type} Bookings
-            </Text>
-          </View>
 
           {/* All List content in a view to manage flex spacing */}
           <View style={{ flex: 6 }}>
@@ -55,7 +39,7 @@ const TechTicketsScreen = ({ navigation }) => {
               />
             </View>
             <FlatList
-              data={navigation.getParam("bookingsList")}
+              data={navigation.getParam("usersList")}
               renderItem={({ item }) => (
                 <View
                   style={{
@@ -64,45 +48,36 @@ const TechTicketsScreen = ({ navigation }) => {
                   }}
                 >
                   {search == "" ||
-                  search == item.booking_id ||
-                  search == item.status ||
-                  search == item.date_booked ||
-                  search == item.date_completed ? (
+                  search == item.user_id ||
+                  search == item.email ||
+                  search == item.phone_number ? (
                     <Card>
                       <View style={styles.IconContainer}>
                         <TouchableOpacity
                           style={styles.IconButton}
-                          onPress={() =>
-                            techCustomerInfoPull(item, customerInfo, navigation)
-                          }
+                          onPress={() => userDetails(item, navigation)}
                         >
                           <View style={styles.cardTextContainer}>
                             <View>
-                              <Text style={styles.ticketText}>Ticket ID:</Text>
-
-                              <Text style={styles.cardText}>
-                                {item.booking_id}
-                              </Text>
+                              <Text style={styles.ticketText}>Email:</Text>
+                              <Text style={styles.cardText}>{item.email}</Text>
                             </View>
                             <View>
-                              <Text style={styles.ticketText}>Device:</Text>
+                              <Text style={styles.ticketText}>First Name:</Text>
 
                               <Text style={styles.cardText}>
-                                {item.device_type}
+                                {item.first_name}
                               </Text>
                             </View>
-                            {navigation.getParam("bookingsType").type ==
-                            "Current" ? (
-                              <View>
-                                <Text style={styles.ticketText}>
-                                  Drop-off Date:
-                                </Text>
 
-                                <Text style={styles.cardText}>
-                                  {item.date_booked}
-                                </Text>
-                              </View>
-                            ) : null}
+                            <View>
+                              <Text style={styles.ticketText}>
+                                Phone Number:
+                              </Text>
+                              <Text style={styles.cardText}>
+                                {item.phone_number}
+                              </Text>
+                            </View>
                             {item.status == "In Progress" &&
                             (item.job_request_response == "Accepted" ||
                               item.job_request_response == "Declined") ? (
@@ -133,58 +108,6 @@ const TechTicketsScreen = ({ navigation }) => {
                                 )}
                               </View>
                             ) : null}
-                            {navigation.getParam("bookingsType").type ==
-                            "Past" ? (
-                              <View>
-                                <Text style={styles.ticketText}>
-                                  Completion Date:
-                                </Text>
-
-                                <Text style={styles.cardText}>
-                                  {item.date_completed}
-                                </Text>
-                              </View>
-                            ) : null}
-                            <View style={styles.ticketItemRow}>
-                              <Text style={styles.ticketText}>Status:</Text>
-                              {item.status == "Pending" ? (
-                                <View style={styles.statusTextContainerPending}>
-                                  <Text style={styles.statusText}>
-                                    {item.status}
-                                  </Text>
-                                </View>
-                              ) : item.status == "In Progress" ? (
-                                <View
-                                  style={styles.statusTextContainerProgress}
-                                >
-                                  <Text style={styles.statusText}>
-                                    {item.status}
-                                  </Text>
-                                </View>
-                              ) : item.status == "Complete" ? (
-                                <View
-                                  style={styles.statusTextContainerComplete}
-                                >
-                                  <Text style={styles.statusText}>
-                                    {item.status}
-                                  </Text>
-                                </View>
-                              ) : item.status == "Closed" ? (
-                                <View style={styles.statusTextContainerClosed}>
-                                  <Text style={styles.statusText}>
-                                    {item.status}
-                                  </Text>
-                                </View>
-                              ) : item.status == "Cancelled" ? (
-                                <View
-                                  style={styles.statusTextContainerCancelled}
-                                >
-                                  <Text style={styles.statusText}>
-                                    {item.status}
-                                  </Text>
-                                </View>
-                              ) : null}
-                            </View>
                           </View>
                         </TouchableOpacity>
                       </View>
@@ -201,28 +124,10 @@ const TechTicketsScreen = ({ navigation }) => {
   );
 };
 
-const techCustomerInfoPull = (item, customerInfo, navigation) => {
-  fetch(global.API_DIRECTORY + global.TECH_CUSTOMERINFO_TICKETS, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user_id: item.user_id,
-    }),
-  })
-    .then((response) => response.json())
-    .then((responseJSON) => {
-      customerInfo = responseJSON;
-      navigation.navigate("TechExpandedTicketScreen", {
-        customerInfo,
-        item,
-      });
-    })
-    .catch((e) => {
-      console.error("oh no :(", e);
-    });
+const userDetails = (item, navigation) => {
+  navigation.navigate("TechExpandedUsersDetail", {
+    item,
+  });
 };
 
 const styles = StyleSheet.create({
@@ -366,4 +271,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TechTicketsScreen;
+export default TechUsersScreen;
