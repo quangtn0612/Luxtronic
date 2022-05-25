@@ -20,10 +20,9 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         marginHorizontal: 4,
         marginVertical: 6,
-        width: "70%",
+        width: "45%",
     },
     cardContent: {
-        //backgroundColor: "tomato",
 
         alignItems: "center",
         justifyContent: "center",
