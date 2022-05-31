@@ -58,6 +58,7 @@ const MainMenuScreen = ({ navigation }) => {
               width: "100%",
               flex: 5,
               marginTop: "2%",
+              height: 30,
               flexDirection: "row",
             }}
           >
@@ -65,17 +66,10 @@ const MainMenuScreen = ({ navigation }) => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                height: 30,
                 width: "100%",
                 maxWidth: "100%",
-                marginBottom: 10,
-                marginTop: 10,
               }}
-            >
-              <Text style={styles.secondLabel}>
-                Kind of services that are provided:
-              </Text>
-            </View>
+            ></View>
           </View>
 
           <View
@@ -89,18 +83,17 @@ const MainMenuScreen = ({ navigation }) => {
           >
             <Card>
               <View style={{}}>
-                <MaterialCommunityIcons
-                  name={"room-service"}
-                  size={100}
-                  color={"#EFA81F"}
-                  style={{ marginLeft: 25 }}
-                />
                 <TouchableOpacity
                   style={styles.IconButton}
                   onPress={() => {
                     navigation.navigate("ServiceListScreen");
                   }}
                 >
+                  <MaterialCommunityIcons
+                    name={"room-service"}
+                    size={130}
+                    color={"#EFA81F"}
+                  />
                   <Text style={styles.IconText}>Our Services</Text>
                 </TouchableOpacity>
               </View>
@@ -113,7 +106,6 @@ const MainMenuScreen = ({ navigation }) => {
             style={{
               width: "100%",
               flex: 5,
-              marginTop: "2%",
               flexDirection: "row",
             }}
           >
@@ -121,16 +113,11 @@ const MainMenuScreen = ({ navigation }) => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                height: 30,
                 width: "100%",
                 marginBottom: 10,
                 marginTop: 10,
               }}
-            >
-              <Text style={styles.secondLabel}>
-                Need some technical assistance?
-              </Text>
-            </View>
+            ></View>
           </View>
 
           <View
@@ -144,20 +131,17 @@ const MainMenuScreen = ({ navigation }) => {
           >
             <Card>
               <View>
-                <MaterialCommunityIcons
-                  name={"book"}
-                  size={100}
-                  color={"#DB5A27"}
-                  style={{
-                    marginLeft: 35,
-                  }}
-                />
                 <TouchableOpacity
                   style={styles.IconButton}
                   onPress={() => {
                     navigation.navigate("CreateBookingScreen");
                   }}
                 >
+                  <MaterialCommunityIcons
+                    name={"book"}
+                    size={130}
+                    color={"#DB5A27"}
+                  />
                   <Text style={styles.IconText}>Book a Services</Text>
                 </TouchableOpacity>
               </View>
@@ -170,7 +154,6 @@ const MainMenuScreen = ({ navigation }) => {
             style={{
               width: "100%",
               flex: 5,
-              marginTop: "2%",
               flexDirection: "row",
             }}
           >
@@ -178,13 +161,11 @@ const MainMenuScreen = ({ navigation }) => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                height: 30,
+                height: 10,
                 width: "100%",
                 marginBottom: 10,
               }}
-            >
-              <Text style={styles.secondLabel}>Need to view your booking?</Text>
-            </View>
+            ></View>
           </View>
 
           <View
@@ -198,20 +179,17 @@ const MainMenuScreen = ({ navigation }) => {
           >
             <Card>
               <View>
-                <MaterialCommunityIcons
-                  name={"book-multiple"}
-                  size={100}
-                  color={"#80B942"}
-                  style={{
-                    marginLeft: 16,
-                  }}
-                />
                 <TouchableOpacity
                   style={styles.IconButton}
                   onPress={() => {
                     navigation.navigate("BookingsScreen");
                   }}
                 >
+                  <MaterialCommunityIcons
+                    name={"book-multiple"}
+                    size={130}
+                    color={"#80B942"}
+                  />
                   <Text style={{ ...styles.IconText, marginLeft: 0 }}>
                     Bookings
                   </Text>
@@ -250,22 +228,21 @@ const MainMenuScreen = ({ navigation }) => {
             <SmallCard>
               <View style={styles.cardContainer}>
                 <View style={styles.IconContainer}>
-                  <MaterialCommunityIcons
-                    name={"contacts"}
-                    size={50}
-                    color={"#65BEAC"}
-                    style={{
-                      marginLeft: 40,
-                      height: 60,
-                      marginTop: -30,
-                    }}
-                  />
                   <TouchableOpacity
                     style={styles.IconButton}
                     onPress={() => {
                       navigation.navigate("ContactUsScreen");
                     }}
                   >
+                    <MaterialCommunityIcons
+                      name={"contacts"}
+                      size={70}
+                      color={"#65BEAC"}
+                      style={{
+                        marginTop: -10,
+                      }}
+                    />
+
                     <Text
                       style={{
                         ...styles.IconText,
@@ -285,11 +262,6 @@ const MainMenuScreen = ({ navigation }) => {
 
             <SmallCard>
               <View style={styles.cardContainer}>
-                <MaterialCommunityIcons
-                  name={"file-document"}
-                  size={60}
-                  color={"#CCCCCC"}
-                />
                 <View style={styles.IconContainer}>
                   <TouchableOpacity
                     style={styles.IconButton}
@@ -299,6 +271,11 @@ const MainMenuScreen = ({ navigation }) => {
                       );
                     }}
                   >
+                    <MaterialCommunityIcons
+                      name={"file-document"}
+                      size={80}
+                      color={"#CCCCCC"}
+                    />
                     <Text style={{ ...styles.IconText, padding: 1 }}>
                       Term and Conditions
                     </Text>
@@ -341,7 +318,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: 40,
     padding: 10,
     marginTop: -15,
     marginBottom: 10,
