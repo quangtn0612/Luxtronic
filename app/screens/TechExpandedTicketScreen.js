@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView, Modal, TextInput} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView, Modal, TextInput, Linking} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import Card from '../shared/ticketsCard';
 import moment from 'moment';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import QRCode from 'react-native-qrcode-svg'
-import { Center } from 'native-base';
+import { Center, Link, Row } from 'native-base';
 
 import AppTextInput from '../components/AppTextInput';
 import { date } from 'yup';
@@ -86,6 +86,9 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 		setBookingDate(currentDate);
 	}
 
+	let emailSubject = 'Your booking with Luxtronic Digital Services has been updated';
+	let emailBody = 'Hi ' + customerInfo.first_name + ',\n\nYou booking with Luxtronic Digital Services has been update. Please refer to your in app booking for further action and details.\n\nKind Regards,\nLuxtronic Digital Services';
+
 	return (
 		// View set to entire screen
 		<View style={{ flex: 1 }}>
@@ -104,22 +107,46 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 							backgroundColor: 'rgba(0,0,0,0.5)'
 						}}>
 							<View style = {{
-								width:300,
-								height:300,
+								height:400,
+								width: 400,
 								justifyContent: 'center',
 								alignItems: 'center',
 								backgroundColor: 'white',
 								borderRadius:50
 							}}>
+								<TouchableOpacity
+								onPress={() => {
+									setModalVisibile(!modalVisible)
+								}}
+								style={{ 		
+									width:200,
+									marginBottom:15,
+									paddingLeft: 10,
+									paddingRight: 10,
+									borderRadius: 25,
+									backgroundColor: '#EFA81F',
+									justifyContent: 'center',
+									alignItems: 'center', }}
+								>
+									<Text style={{fontSize: 25}}>Close QR Code</Text>
+								</TouchableOpacity>
 								<QRCode
-								value={ ticket.booking_id + '/' + ticket.user_id}
+								value={ticket.booking_id}
 								size = {250}
-								color='white'
-								backgroundColor='black'
+								color='black'
+								backgroundColor='white'
 								>
 								</QRCode>
-							</View>
-							<Text>Please present this QRCode to the technician to have your ticket quickly brought up</Text>
+								<View
+								style = {{
+									width:250,
+									marginBottom:15,
+									paddingLeft: 10,
+									paddingRight: 10,
+									borderRadius: 25,}}>
+								<Text>Please present this QRCode to the technician to have your ticket quickly brought up</Text>
+								</View>
+							</View>	
 						</View>				
 					</Modal>
 				<View style={{ flex: 1 }}>
@@ -146,12 +173,19 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 					<View
 						style={{
 							flex: 1,
-							alignItems: 'center',
-							justifyContent: 'center',
+							alignItems: "center",
+							justifyContent: "center",
 						}}
 					>
 						<TouchableOpacity
-							style={{ paddingBottom: 10 }}
+							style={{
+								width:300, 		
+								alignItems: "center",
+								justifyContent: "center",
+								borderRadius: 25,
+								backgroundColor: '#EFA81F',
+								marginTop: 10,
+								marginBottom: 10 }}
 							onPress={() => {
 								setModalVisibile(!modalVisible)
 							}}
@@ -248,12 +282,17 @@ const TechExpandedTicketScreen = ({ navigation }) => {
 												</Text>
 											</View>
 
-                      <View>
+                    						<View>
 												<Text style={styles.ticketText}>Email:</Text>
-
-												<Text style={styles.cardText}>
-													{customerInfo.email}
-												</Text>
+												<TouchableOpacity
+													style={{backgroundColor:'#EFA81F', borderRadius: 10}}
+													onPress={() => {
+														Linking.openURL('mailto:' + customerInfo.email + '?subject=' + emailSubject + '&body=' + emailBody);
+													}}>
+													<Text style={styles.cardText}>
+														{customerInfo.email}
+													</Text>
+												</TouchableOpacity>
 											</View>
                       
 											<View>
@@ -429,6 +468,7 @@ const updateStatus = (i, ticket, setticket) => {
 	}
 	setticket(ticket);
 
+	
 	fetch(global.API_DIRECTORY + global.UPDATE_STATUS, {
 		method: 'POST',
 		headers: {
@@ -447,6 +487,7 @@ const updateStatus = (i, ticket, setticket) => {
 		.then((response) => response.json())
 		.then((responseJSON) => {
 			if (responseJSON == true) {
+				
 			} else {
 				Alert.alert('Notice', 'Error: Status was unable to be edited at this time.', [ { text: 'Ok' } ]);
 			}

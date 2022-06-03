@@ -1,14 +1,71 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Alert, Modal, TextInput } from 'react-native';
+import QRCode from 'react-native-qrcode-svg'
 import Card from '../shared/ticketsCard';
 import moment from 'moment';
 
 const TicketsScreen = ({ navigation }) => {
+	const [modalVisible, setModalVisibile] = React.useState(false);
+	const [qrcodeValue, setQRCode] = React.useState(5);
 	return (
 		// View set to entire screen
 		<View style={{ flex: 1 }}>
 			{/* // SafeAreaView accounts for notch on iOS devices */}
 			<SafeAreaView style={styles.container}>
+			<Modal
+					animationType='slide'
+					visible={modalVisible}
+					transparent={true}
+					onRequestClose={() => setModalVisibile(!modalVisible)}>
+						<View style = {{
+							flex: 1,
+							justifyContent: 'center',
+							alignItems: 'center',
+							backgroundColor: 'rgba(0,0,0,0.5)'
+						}}>
+							<View style = {{
+								height:400,
+								width: 400,
+								justifyContent: 'center',
+								alignItems: 'center',
+								backgroundColor: 'white',
+								borderRadius:50
+							}}>
+								<TouchableOpacity
+								onPress={() => {
+									setModalVisibile(!modalVisible)
+								}}
+								style={{ 		
+									width:200,
+									marginBottom:15,
+									paddingLeft: 10,
+									paddingRight: 10,
+									borderRadius: 25,
+									backgroundColor: '#EFA81F',
+									justifyContent: 'center',
+									alignItems: 'center', }}
+								>
+									<Text style={{fontSize: 25}}>Close QR Code</Text>
+								</TouchableOpacity>
+								<QRCode
+								value={qrcodeValue}
+								size = {250}
+								color='black'
+								backgroundColor='white'
+								>
+								</QRCode>
+								<View
+								style = {{
+									width:250,
+									marginBottom:15,
+									paddingLeft: 10,
+									paddingRight: 10,
+									borderRadius: 25,}}>
+								<Text>Please present this QRCode to the technician to have your ticket quickly brought up</Text>
+								</View>
+							</View>	
+						</View>				
+					</Modal>
 				<View style={{ flex: 1 }}>
 					{/* Child view elements are ordered by columns */}
 					<View
@@ -42,6 +99,30 @@ const TicketsScreen = ({ navigation }) => {
 									}}
 								>
 									<Card>
+										<View
+											style={{
+												flex: 1,
+												alignItems: "center",
+												justifyContent: "center",
+											}}
+										>
+											<TouchableOpacity
+												style={{
+													width:300, 		
+													alignItems: "center",
+													justifyContent: "center",
+													borderRadius: 25,
+													backgroundColor: '#EFA81F',
+													marginTop: 10,
+													marginBottom: 10 }}
+												onPress={() => {
+													setQRCode(item.booking_id)
+													setModalVisibile(!modalVisible)
+												}}
+												>
+												<Text style={{ fontSize: 30}}>Generate QR Code</Text>
+												</TouchableOpacity>
+										</View>
 										<View style={styles.cardTextContainer}>
 											<View>
 												<Text style={styles.ticketText}>Device:</Text>

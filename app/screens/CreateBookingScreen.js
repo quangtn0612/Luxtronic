@@ -119,6 +119,12 @@ const CreateBookingScreen = ({ navigation }) => {
 	const [ stepFour, setstepFour ] = React.useState('checkbox-blank-circle-outline');
 	const [ stepFive, setstepFive ] = React.useState('checkbox-blank-circle-outline');
 
+	const [dataBackupText, setDBText] = React.useState('Data backup');
+	const [installText, setInstallText] = React.useState('Software Installation');
+	const [virusText, setVriusText] = React.useState('Virus/Malware removal');
+	const [cleanText, setCealnText] = React.useState('Dust/Fan clean');
+
+
 	const [ isSelected, setSelection ] = React.useState(false);
 	const [ checkBoxSelected, setcheckBoxSelected ] = React.useState('checkbox-blank-outline');
 	const validationSchema = Yup.object().shape({
@@ -206,7 +212,11 @@ const CreateBookingScreen = ({ navigation }) => {
 											setchosenDevice(true),
 											setdevice('apple'),
 											setdeviceData('Apple'),
-											setstepTwo('checkbox-marked-circle')
+											setstepTwo('checkbox-marked-circle'),
+											setDBText('Data backup'),
+											setInstallText('Software Installation'),
+											setVriusText('Virus/Malware removal'),
+											setCealnText('Dust/Fan clean')
 										)}
 									>
 										<MaterialCommunityIcons name={'apple'} size={100} color={'#EFA81F'} />
@@ -224,7 +234,11 @@ const CreateBookingScreen = ({ navigation }) => {
 											setchosenDevice(true),
 											setdevice('microsoft-windows'),
 											setdeviceData('Windows'),
-											setstepTwo('checkbox-marked-circle')
+											setstepTwo('checkbox-marked-circle'),
+											setDBText('Data backup'),
+											setInstallText('Software Installation'),
+											setVriusText('Virus/Malware removal'),
+											setCealnText('Dust/Fan clean')
 										)}
 									>
 										<MaterialCommunityIcons
@@ -254,7 +268,11 @@ const CreateBookingScreen = ({ navigation }) => {
 											setchosenDevice(true),
 											setdevice('file-plus'),
 											setdeviceData('Data Recovery'),
-											setstepTwo('checkbox-marked-circle')
+											setstepTwo('checkbox-marked-circle'),
+											setDBText('Device not powering on'),
+											setInstallText('Storage drive not visible'),
+											setVriusText('Internal sounds/clicking'),
+											setCealnText('Storage drive formatted')
 										)}
 									>
 										<MaterialCommunityIcons
@@ -277,7 +295,11 @@ const CreateBookingScreen = ({ navigation }) => {
 											setchosenDevice(true),
 											setdevice('laptop'),
 											setdeviceData('Other'),
-											setstepTwo('checkbox-marked-circle')
+											setstepTwo('checkbox-marked-circle'),
+											setDBText('Data backup'),
+											setInstallText('Software Installation'),
+											setVriusText('Virus/Malware removal'),
+											setCealnText('Dust/Fan clean')
 										)}
 									>
 										<MaterialCommunityIcons name={'laptop'} size={100} color={'#EFA81F'} />
@@ -381,7 +403,7 @@ const CreateBookingScreen = ({ navigation }) => {
 															thumbColor={dataBackup ? '#ffffff' : '#ffffff'}
 														/>
 														<TouchableOpacity onPress={() => setdataBackup(!dataBackup)}>
-															<Text style={styles.IconText2}>Data Backup</Text>
+															<Text style={styles.IconText2}>{dataBackupText}</Text>
 														</TouchableOpacity>
 													</View>
 													<View style={styles.checkBoxContainer}>
@@ -402,7 +424,7 @@ const CreateBookingScreen = ({ navigation }) => {
 															onPress={() =>
 																setSoftwareInstallation(!softwareInstallation)}
 														>
-															<Text style={styles.IconText2}>Software Installation</Text>
+															<Text style={styles.IconText2}>{installText}</Text>
 														</TouchableOpacity>
 													</View>
 													<View style={styles.checkBoxContainer}>
@@ -423,7 +445,7 @@ const CreateBookingScreen = ({ navigation }) => {
 															onPress={() => setVirusMalwareRemoval(!virusMalwareRemoval)}
 														>
 															<Text style={styles.IconText2}>
-																Virus / Malware Removal
+																{virusText}
 															</Text>
 														</TouchableOpacity>
 													</View>
@@ -444,7 +466,7 @@ const CreateBookingScreen = ({ navigation }) => {
 														<TouchableOpacity
 															onPress={() => setDustFanClean(!dustFanClean)}
 														>
-															<Text style={styles.IconText2}>Dust / Fan Clean</Text>
+															<Text style={styles.IconText2}>{cleanText}</Text>
 														</TouchableOpacity>
 													</View>
 													<View style={styles.checkBoxContainer}>
@@ -513,7 +535,11 @@ const CreateBookingScreen = ({ navigation }) => {
 																virusMalwareRemoval,
 																dustFanClean,
 																waterDamageRescue,
-																unknownIssue
+																unknownIssue,
+																dataBackupText,
+																installText,
+																virusText,
+																cleanText
 															)
 														)}
 													>
@@ -1062,29 +1088,33 @@ const assignService = (
 	virusMalwareRemoval,
 	dustFanClean,
 	waterDamageRescue,
-	unknownIssue
+	unknownIssue,
+	dbText,
+	siText,
+	vmText,
+	dfText
 ) => {
 	let counter = 0;
 	if (dataBackup == true) {
-		services[counter] = 'Data Backup';
+		services[counter] = dbText;
 		counter = counter + 1;
 	}
 	if (softwareInstallation == true) {
-		services[counter] = 'Software Installation';
+		services[counter] = siText;
 		if (counter > 0) {
 			spaces[counter - 1] = ',\n';
 		}
 		counter = counter + 1;
 	}
 	if (virusMalwareRemoval == true) {
-		services[counter] = 'Virus Malware Removal';
+		services[counter] = vmText;
 		if (counter > 0) {
 			spaces[counter - 1] = ',\n';
 		}
 		counter = counter + 1;
 	}
 	if (dustFanClean == true) {
-		services[counter] = 'Dust Fan Clean';
+		services[counter] = dfText;
 		if (counter > 0) {
 			spaces[counter - 1] = ',\n';
 		}

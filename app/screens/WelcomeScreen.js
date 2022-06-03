@@ -17,6 +17,7 @@ import {
   Platform,
   TextInput,
   TouchableOpacity,
+  Linking
 } from "react-native";
 import AppTextInput from "../components/AppTextInput";
 import * as SecureStore from "expo-secure-store";
@@ -232,6 +233,26 @@ const WelcomeScreen = ({ navigation }) => {
                     <Text style={styles.text2}>Register here</Text>
                   </TouchableOpacity>
                 </View>
+                <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "baseline",
+                  justifyContent: "center",
+                }}
+                >
+                  <Text style={styles.text3}>Want to know more about Luxtronic Digital Services?</Text>
+                  
+                </View>
+                <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => {
+                      Linking.openURL(
+                        "https://luxtronic.com.au/"
+                      );
+                    }}
+                  >
+                    <Text style={styles.text2}>Visit our website</Text>
+                  </TouchableOpacity>
               </View>
             </View>
           </SafeAreaView>

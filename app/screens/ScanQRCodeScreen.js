@@ -4,13 +4,14 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { Dimensions } from "react-native-web";
 import { AspectRatio } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 
 const ScanQRCodeScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = React.useState(null);
   const [scanned, setScanned] = React.useState(false);
-  const [booking, setBooking] = React.useState();
-  const [customerInfo, setcustomerInfo] = React.useState();
-  const [scanText, setScanText] = React.useState("no text yet");
+  const [booking, setBooking] = React.useState([]);
+  const [customerInfo, setcustomerInfo] = React.useState([]);
+  const [scanText, setScanText] = React.useState("No code yet scanned");
 
   const getCameraPermission = () => {
     (async () => {
@@ -21,9 +22,8 @@ const ScanQRCodeScreen = ({ navigation }) => {
 
   const codeScanned = ({ type, data }) => {
     setScanned(true);
-    setScanText(data);
-    console.log("Type: " + type + "\nData: " + data);
-    getTicketInfo(data, navigation);
+    setScanText(data);    
+    getTicketInfo(data,booking,customerInfo, navigation);
   };
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const ScanQRCodeScreen = ({ navigation }) => {
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
-          borderRadius: 30,
+          borderRadius: 50,
           backgroundColor: "#fff",
           width: 300,
           height: 300,
@@ -77,15 +77,15 @@ const ScanQRCodeScreen = ({ navigation }) => {
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => setScanned(!scanned)}
+        onPress={() =>  setScanned(!scanned)}
       >
-        <Text style={styles.text}>Login</Text>
+        <Text style={styles.text}>Scan Again</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const getTicketInfo = (ticketCode, navigation) => {
+const getTicketInfo = (ticketCode,booking,userID, navigation) => {
   fetch(global.API_DIRECTORY + global.TECH_BOOKING_FROM_ID, {
     method: "POST",
     headers: {
@@ -99,27 +99,31 @@ const getTicketInfo = (ticketCode, navigation) => {
     .then((response) => response.json())
     .then((responseJSON) => {
       booking = responseJSON;
-      fetch(global.API_DIRECTORY + global.TECH_CUSTOMERINFO_TICKETS, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: booking.user_id,
-        }),
-      })
-        .then((response) => response.json())
-        .then((responseJSON) => {
-          customerInfo = responseJSON;
-          navigation.navigate("TechExpandedTicketScreen", {
-            customerInfo,
-            booking,
-          });
-        })
-        .catch((e) => {
-          console.error("oh no :(", e);
-        });
+      bringUpTicket(booking, userID, navigation);
+    })
+    .catch((e) => {
+      console.error("oh no :(", e);
+    });
+};
+
+const bringUpTicket = (item, customerInfo, navigation) => {
+  fetch(global.API_DIRECTORY + global.TECH_CUSTOMERINFO_TICKETS, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: item.user_id,
+    }),
+  })
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      customerInfo = responseJSON;
+      navigation.navigate("TechExpandedTicketScreen", {
+        customerInfo,
+        item,
+      });
     })
     .catch((e) => {
       console.error("oh no :(", e);

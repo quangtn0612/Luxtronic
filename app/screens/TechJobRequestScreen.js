@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   ScrollView,
+  Linking
 } from "react-native";
 import JobRequestTextInput from "../components/JobRequestMultiInput";
 import moment from "moment";
@@ -225,7 +226,7 @@ const updateJobRequest = (
     .then((responseJSON) => {
       if (responseJSON == true) {
         Alert.alert("Notice", "Updated Job Request successfully.", [
-          {
+          {         
             text: "Ok",
             onPress: () => navigation.navigate("TechMainMenuScreen"),
           },
