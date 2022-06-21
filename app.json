@@ -1,31 +1,37 @@
 {
-	"expo": {
-		"name": "luxtronic-mobile-application",
-		"slug": "luxtronic-mobile-application",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./app/assets/Luxtronic_Logo2.png",
-		"splash": {
-			"image": "./app/assets/lux_splash.png",
-			"resizeMode": "cover",
-			"backgroundColor": "#FFFFF"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": [ "**/*" ],
-		"ios": {
-			"supportsTablet": true,
-			"buildNumber": "1.0.0"
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./app/assets/Luxtronic_Logo2.png",
-				"backgroundColor": "#FFFFFF"
-			}
-		},
-		"web": {
-			"favicon": "./assets/favicon.png"
-		}
-	}
+  "expo": {
+    "name": "luxtronic-mobile-application",
+    "slug": "luxtronic-mobile-application",
+    "version": "1.1.1",
+    "orientation": "portrait",
+    "icon": "./app/assets/Luxtronic_Logo2.png",
+    "splash": {
+      "image": "./app/assets/lux_splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#FFFFF"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "buildNumber": "1.1.1",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "This app will optionally use Face ID or Touch ID to save login"
+      },
+      "bundleIdentifier": "com.luxtronic.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/Luxtronic_Logo2.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
 }

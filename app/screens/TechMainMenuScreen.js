@@ -8,7 +8,6 @@ import {
   Text,
   Alert,
   ScrollView,
-  
 } from "react-native";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import Card from "../shared/ticketsCard";
@@ -144,13 +143,17 @@ const TechMainMenuScreen = ({ navigation }) => {
                           <TouchableOpacity
                             style={styles.IconButton}
                             onPress={() => {
-                              navigation.navigate("ScanQRCodeScreen", navigation);
+                              navigation.navigate(
+                                "ScanQRCodeScreen",
+                                navigation
+                              );
                             }}
                           >
-                            <Image
-                              style={styles.Icon}
-                              source={require("../assets/Luxtronic_QR_Code.png")}
-                            ></Image>
+                            <FontAwesome
+                              name="qrcode"
+                              size={100}
+                              color="#000000"
+                            />
                             <Text style={styles.IconText}>Scan QR Code</Text>
                           </TouchableOpacity>
                         </View>
